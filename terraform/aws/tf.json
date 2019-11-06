@@ -1,0 +1,173 @@
+{
+  "kubeone_api": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "endpoint": "string"
+      }
+    ],
+    "value": {
+      "endpoint": "udacitykubeone-api-lb-9183daa26e2afdfc.elb.us-east-1.amazonaws.com"
+    }
+  },
+  "kubeone_hosts": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "control_plane": [
+          "object",
+          {
+            "cloud_provider": "string",
+            "cluster_name": "string",
+            "hostnames": [
+              "tuple",
+              [
+                "string",
+                "string",
+                "string"
+              ]
+            ],
+            "private_address": [
+              "tuple",
+              [
+                "string",
+                "string",
+                "string"
+              ]
+            ],
+            "public_address": [
+              "tuple",
+              [
+                "string",
+                "string",
+                "string"
+              ]
+            ],
+            "ssh_agent_socket": "string",
+            "ssh_port": "number",
+            "ssh_private_key_file": "string",
+            "ssh_user": "string"
+          }
+        ]
+      }
+    ],
+    "value": {
+      "control_plane": {
+        "cloud_provider": "aws",
+        "cluster_name": "udacitykubeone",
+        "hostnames": [
+          "ip-172-31-80-210.ec2.internal",
+          "ip-172-31-24-165.ec2.internal",
+          "ip-172-31-38-156.ec2.internal"
+        ],
+        "private_address": [
+          "172.31.80.210",
+          "172.31.24.165",
+          "172.31.38.156"
+        ],
+        "public_address": [
+          "54.167.111.27",
+          "54.226.54.14",
+          "54.210.151.100"
+        ],
+        "ssh_agent_socket": "env:SSH_AUTH_SOCK",
+        "ssh_port": 22,
+        "ssh_private_key_file": "",
+        "ssh_user": "ubuntu"
+      }
+    }
+  },
+  "kubeone_workers": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "udacitykubeone-pool1": [
+          "object",
+          {
+            "providerSpec": [
+              "object",
+              {
+                "cloudProviderSpec": [
+                  "object",
+                  {
+                    "ami": "string",
+                    "availabilityZone": "string",
+                    "diskIops": "number",
+                    "diskSize": "number",
+                    "diskType": "string",
+                    "instanceProfile": "string",
+                    "instanceType": "string",
+                    "region": "string",
+                    "securityGroupIDs": [
+                      "tuple",
+                      [
+                        "string"
+                      ]
+                    ],
+                    "subnetId": "string",
+                    "tags": [
+                      "object",
+                      {
+                        "udacitykubeone-workers": "string"
+                      }
+                    ],
+                    "vpcId": "string"
+                  }
+                ],
+                "operatingSystem": "string",
+                "operatingSystemSpec": [
+                  "object",
+                  {
+                    "distUpgradeOnBoot": "bool"
+                  }
+                ],
+                "sshPublicKeys": [
+                  "tuple",
+                  [
+                    "string"
+                  ]
+                ]
+              }
+            ],
+            "replicas": "number"
+          }
+        ]
+      }
+    ],
+    "value": {
+      "udacitykubeone-pool1": {
+        "providerSpec": {
+          "cloudProviderSpec": {
+            "ami": "ami-0d5ae5525eb033d0a",
+            "availabilityZone": "us-east-1a",
+            "diskIops": 500,
+            "diskSize": 50,
+            "diskType": "gp2",
+            "instanceProfile": "udacitykubeone-host",
+            "instanceType": "t3.medium",
+            "region": "us-east-1",
+            "securityGroupIDs": [
+              "sg-0dc426f54c48e19bd"
+            ],
+            "subnetId": "subnet-003b8741f575842ef",
+            "tags": {
+              "udacitykubeone-workers": "pool1"
+            },
+            "vpcId": "vpc-037898d8ddef423ba"
+          },
+          "operatingSystem": "ubuntu",
+          "operatingSystemSpec": {
+            "distUpgradeOnBoot": false
+          },
+          "sshPublicKeys": [
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDBy1U1v7zFtIVrJeSKNKpCp5E12HxKzmsoXrJMy770wWWz09s3pyTdK3lRF7geoejsbBPWjq+qvPx+U/vkITF92y/X60LFHc/lmZH2nAPbMI08qI7zNq4a6nQev1+y2E8dBF2us9m++kc52RIiEkKdW3Zx4x7QNjAwBRQPBwUbUSEvyFYLLFN4meTU3wQFv+meqTsFTOJh2bM7GossuStVvPqBN6d+MpW+Ad3e75Vx18UTupuoMqZLT0907UO07B7ca2FGpBy3pnoXmDJkzaaioReFrtkhVneTdqA8Bl8LV8OdXDT3o+yQndlYDsYjN0wG0lOEsUSR4rsyjEfXWT/IJssuyDZe/qKnpb/kBIULCi7nrYXSDtlheAeFGXBISBySCYvXnOld6MG3JxJiZYnsJaVLFeqnXPKpP0iBh83zBmC6VMtelET/I4zEO1PZgtZ1bHYX9TqK3FzMG6woq81ZD81VknQwVL8Z25JsO7tAWjucjZ5FhQtJ7x9O/yJQxvM8eptRhUxvYHr6EWXGb1lxPq73rxcWKiZc1bbQURjIirVjWzV/w6phJs7fOy2j9cPmkC0P3F0cxTKF0ZCy4XQEPFOKbU1wIjsgyUgq8iWwVrnzg+A3PuvfBmtR+uFuR8hrlWuJBMkMM/FBqQIROIXS1Bogv+fTPscyCRGtlUK5yQ== snleung"
+          ]
+        },
+        "replicas": 1
+      }
+    }
+  }
+}
