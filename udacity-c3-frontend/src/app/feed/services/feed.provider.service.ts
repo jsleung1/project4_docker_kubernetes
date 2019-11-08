@@ -13,6 +13,7 @@ export class FeedProviderService {
   constructor(private api: ApiService) { }
 
   async getFeed(): Promise<BehaviorSubject<FeedItem[]>> {
+    console.log('frontend:getFeed');
     const req = await this.api.get('/feed');
     const items = <FeedItem[]> req.rows;
     this.currentFeed$.next(items);
@@ -20,6 +21,7 @@ export class FeedProviderService {
   }
 
   async uploadFeedItem(caption: string, file: File): Promise<any> {
+    console.log('frontend:uploadFeedItem');
     const res = await this.api.upload('/feed', file, {caption: caption, url: file.name});
     const feed = [res, ...this.currentFeed$.value];
     this.currentFeed$.next(feed);

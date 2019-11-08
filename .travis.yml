@@ -19,22 +19,20 @@ before_install:
 
 install:
   - docker-compose -f udacity-c3-deployment/docker/docker-compose-build.yaml build --parallel
-  #- docker push jsleung1/reverseproxy:${TRAVIS_BUILD_ID}
-  #- docker push jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID}
+  - docker push jsleung1/reverseproxy:${TRAVIS_BUILD_ID}
+  - docker push jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID}
   - docker push jsleung1/udacity-restapi-feed:${TRAVIS_BUILD_ID}
-  #- docker push jsleung1/udacity-frontend:${TRAVIS_BUILD_ID}
-  #- docker tag jsleung1/reverseproxy:${TRAVIS_BUILD_ID} jsleung1/reverseproxy:latest
-  #- docker tag jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID} jsleung1/udacity-restapi-user:latest
+  - docker push jsleung1/udacity-frontend:${TRAVIS_BUILD_ID}
+  - docker tag jsleung1/reverseproxy:${TRAVIS_BUILD_ID} jsleung1/reverseproxy:latest
+  - docker tag jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID} jsleung1/udacity-restapi-user:latest
   - docker tag jsleung1/udacity-restapi-feed:${TRAVIS_BUILD_ID} jsleung1/udacity-restapi-feed:latest
-  #- docker tag jsleung1/udacity-frontend:${TRAVIS_BUILD_ID} jsleung1/udacity-frontend:latest
-  #- docker push jsleung1/reverseproxy:latest
-  #- docker push jsleung1/udacity-restapi-user:latest
+  - docker tag jsleung1/udacity-frontend:${TRAVIS_BUILD_ID} jsleung1/udacity-frontend:latest
+  - docker push jsleung1/reverseproxy:latest
+  - docker push jsleung1/udacity-restapi-user:latest
   - docker push jsleung1/udacity-restapi-feed:latest
-  #- docker push jsleung1/udacity-frontend:latest
+  - docker push jsleung1/udacity-frontend:latest
   - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - sed -i -e 's|KUBE_ENDPOINT|'"${KUBE_ENDPOINT}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - sed -i -e 's|KUBE_ADMIN_CERT|'"${KUBE_ADMIN_CERT}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - sed -i -e 's|KUBE_ADMIN_KEY|'"${KUBE_ADMIN_KEY}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - kubectl --kubeconfig terraform/aws/udacitykubeone-kubeconfig-bare-travis set image deployment/backend-feed backend-feed=jsleung1/udacity-restapi-feed:$TRAVIS_BUILD_ID
-  #- kubectl rollout status deployment//backend-feed
-  #- kubectl --kubeconfig kubeconfigTemplate rolling-update deployment/backend-feed --image=jsleung1/udacity-restapi-feed:$TRAVIS_BUILD_ID

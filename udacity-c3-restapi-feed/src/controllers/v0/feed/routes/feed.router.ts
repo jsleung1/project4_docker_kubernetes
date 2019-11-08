@@ -30,12 +30,13 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
+    console.log('restapi-feed:getAllFeedItems');
     const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
     items.rows.map((item) => {
             if(item.url) {
                 console.log('normal item.url =' + item.url);
                 item.url = AWS.getGetSignedUrl(item.url);
-                console.log('AWS.getGetSignedUrl =' + item.url);
+                console.log('restapi-feed:AWS.getGetSignedUrl =' + item.url);
             }
     });
     res.send(items);

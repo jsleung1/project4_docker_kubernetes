@@ -1,25 +1,18 @@
 version: "3"
 services:
-  #reverseproxy:
-  #  build:
-  #    context: .
-  #  image: jsleung1/reverseproxy:${TRAVIS_BUILD_ID}
-  #backend_user:
-  #  build:
-  #    context: ../../udacity-c3-restapi-user
-  #  image: jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID}
+  reverseproxy:
+    build:
+      context: .
+    image: jsleung1/reverseproxy:${TRAVIS_BUILD_ID}
+  backend_user:
+    build:
+      context: ../../udacity-c3-restapi-user
+    image: jsleung1/udacity-restapi-user:${TRAVIS_BUILD_ID}
   backend_feed:
     build:
       context: ../../udacity-c3-restapi-feed  
     image: jsleung1/udacity-restapi-feed:${TRAVIS_BUILD_ID}
-    logging:
-      driver: "awslogs"
-      options:
-        awslogs-region: "us-east-1"
-        awslogs-group: "udacity-kubernetes"
-        awslogs-stream: "backend-feed-logs"
-  #frontend:
-  #  build:
-  #    context: ../../udacity-c3-frontend  
-  #  image: jsleung1/udacity-frontend:${TRAVIS_BUILD_ID}
-  #
+  frontend:
+    build:
+      context: ../../udacity-c3-frontend  
+    image: jsleung1/udacity-frontend:${TRAVIS_BUILD_ID}
