@@ -35,4 +35,7 @@ install:
   - sed -i -e 's|KUBE_ENDPOINT|'"${KUBE_ENDPOINT}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - sed -i -e 's|KUBE_ADMIN_CERT|'"${KUBE_ADMIN_CERT}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
   - sed -i -e 's|KUBE_ADMIN_KEY|'"${KUBE_ADMIN_KEY}"'|g' terraform/aws/udacitykubeone-kubeconfig-bare-travis
+  - kubectl --kubeconfig terraform/aws/udacitykubeone-kubeconfig-bare-travis set image deployment/reverseproxy reverseproxy=jsleung1/reverseproxy:$TRAVIS_BUILD_ID
   - kubectl --kubeconfig terraform/aws/udacitykubeone-kubeconfig-bare-travis set image deployment/backend-feed backend-feed=jsleung1/udacity-restapi-feed:$TRAVIS_BUILD_ID
+  - kubectl --kubeconfig terraform/aws/udacitykubeone-kubeconfig-bare-travis set image deployment/backend-user backend-user=jsleung1/udacity-restapi-user:$TRAVIS_BUILD_ID
+  - kubectl --kubeconfig terraform/aws/udacitykubeone-kubeconfig-bare-travis set image deployment/frontend frontend=jsleung1/udacity-frontend:$TRAVIS_BUILD_ID
