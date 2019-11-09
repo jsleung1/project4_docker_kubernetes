@@ -78,7 +78,9 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
       - **terraform.tfvars**: Required by terraform to create the infrastructure.
       - **config.yaml**: Install Kubernetes and create the Kubernetes cluster.
       - **udacitykubeone-kubeconfig**: The full config including the sensitive data such as certificate authority data of my Kubernetes cluster ("udacitykubeone").
-      - **udacitykubeone-kubeconfig-bare-travis**: The config of my Kubernetes cluster excluding the sensitive data, required by Travis CI to update the Kubernetes pods after    the image is successfully built by Travis CI.  The sensitive data are replaced by Travis environment variables whose values are defined in Travis Settings.
+      - **udacitykubeone-kubeconfig-bare-travis**: The config of my Kubernetes cluster excluding the sensitive data, required by Travis CI to update the Kubernetes pods after    the images were successfully built by Travis CI.  The sensitive data in the config are replaced by Travis environment variables whose values are defined in Travis Settings.
 
-2. Instructions for creation of Kubernetes pods:
+#### 3. Instructions for creation of Kubernetes pods in Kubernetes cluster ("udacitykubeone"):
+
+  - 
     
