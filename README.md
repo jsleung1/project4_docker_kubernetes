@@ -21,7 +21,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 #### Setup Instructions:
 
 ###### 1. Build the docker images and ensure the docker images are running properly in the local system 
-######    before installing the Kubernetes cluster.
+###### before installing the Kubernetes cluster.
 
   1. Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
     when execute *docker-compose up*.
