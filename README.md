@@ -39,22 +39,22 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     ```
   - Build the individual docker images:
     ```
-    - cd **udacity-c3-restapi-user/**
-    - *execute:* docker build -t jsleung1/udacity-restapi-user .
+    - cd udacity-c3-restapi-user/
+    - docker build -t jsleung1/udacity-restapi-user .
 
-    - *cd* **udacity-c3-restapi-feed/**
-    - *execute:* docker build -t jsleung1/udacity-restapi-feed .
+    - cd udacity-c3-restapi-feed/
+    - docker build -t jsleung1/udacity-restapi-feed .
 
-    - *cd* **udacity-c3-frontend/**
-    - *execute:* docker build -t jsleung1/udacity-frontend .
+    - cd udacity-c3-frontend/
+    - docker build -t jsleung1/udacity-frontend .
 
-    - cd **udacity-c3-deployment/docker**
-    - *execute:* docker build -t jsleung1/reverseproxy .
+    - cd udacity-c3-deployment/docker
+    - docker build -t jsleung1/reverseproxy .
     ```
   - Run the docker containers and verify the application behavior:
     ```
-    - cd **udacity-c3-deployment/docker**
-    - *execute:* docker-compose up
+    - cd udacity-c3-deployment/docker
+    - docker-compose up
     ```
     This will run the above four docker images as defined in **udacity-c3-deployment/docker/docker-compose.yaml** .
     From the terminal, ensure the four docker images are started without any errors.
@@ -66,20 +66,19 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
 #### 2. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
 
-  - Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md :
+  - Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md:
     - Created terraform.tfvars (refer to source: **terraform/aws/terraform.tfvars**)
       - Specify the correct AWS region ("us-east-1")
       - Specify the name of my Kubernetes cluster ("udacitykubeone")
-      - ssh_public_key_file: point to the new ssh key ("~/.ssh/id_rsa.pub")
-    - execute: kubeone install config.yaml -t tf.json
-    - After the Kubernetes cluster is created, in .bash_profile, export KUBECONFIG=/home/vagrant/udacity/udacity_project4/terraform/aws/udacitykubeone-kubeconfig . 
+      - ssh_public_key_file: point to the ssh key ("~/.ssh/id_rsa.pub")
+    - execute: *kubeone install config.yaml -t tf.json*
+    - After the Kubernetes cluster is created, in .bash_profile, export KUBECONFIG=~/udacity_project4/terraform/aws/udacitykubeone-kubeconfig . 
       This is required so kubectl will automatically refer to this config when execute any commands related to kubectl. 
-    - The source related to creation of Kubernetes cluster can be found in the source folder terraform/aws :
-      - terraform.tfvars: for Terraform to create the infrastructure.
-      - config.yaml: Install Kubernetes and create the Kubernetes cluster.
-      - udacitykubeone-kubeconfig: the full config including the sensitive data such as certificate authority data of my Kubernetes cluster ("udacitykubeone").
-      - udacitykubeone-kubeconfig-bare-travis: the config of my Kubernetes cluster excluding the sensitive data 
-        for Travis CI to update the Kubernetes pods after the image is successfully built.  The sensitive data are replaced by Travis environment variables whose values are defined in Travis Settings.
+    - The source related to creation of Kubernetes cluster can be found in the source folder **terraform/aws** :
+      - **terraform.tfvars**: Required by terraform to create the infrastructure.
+      - **config.yaml**: Install Kubernetes and create the Kubernetes cluster.
+      - **udacitykubeone-kubeconfig**: The full config including the sensitive data such as certificate authority data of my Kubernetes cluster ("udacitykubeone").
+      - **udacitykubeone-kubeconfig-bare-travis**: The config of my Kubernetes cluster excluding the sensitive data, required by Travis CI to update the Kubernetes pods after    the image is successfully built by Travis CI.  The sensitive data are replaced by Travis environment variables whose values are defined in Travis Settings.
 
 2. Instructions for creation of Kubernetes pods:
     
