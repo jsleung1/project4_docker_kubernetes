@@ -24,15 +24,15 @@ data:
       @type record_transformer
       enable_ruby true
       <record>
-        pod_name "udacity_project4_log_group"
-        container_name ${record.fetch("kubernetes", Hash.new).fetch("pod_name", "unknown_pod")}
+        log_group_name "udacity_project4_log_group"
+        log_stream_name ${record.fetch("kubernetes", Hash.new).fetch("pod_name", "unknown_pod")}
       </record>
     </filter>
 
     <match kubernetes.**>
       @type cloudwatch_logs
-      log_group_name_key pod_name
-      log_stream_name_key container_name
+      log_group_name_key log_group_name
+      log_stream_name_key log_stream_name
       auto_create_stream true
       put_log_events_retry_limit 20
     </match>

@@ -111,20 +111,20 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 #### 4. Instructions for integrating Travis CI with Github repository
 
   - Go to https://github.com/jsleung1/udacity_project4 , go to Settings, and under Apps and integrations, select Travis CI and grant Travis CI access to the repository jsleung1/udacity_project4.
-  - Go to https://travis-ci.com.  Since you are already logged in to GitHub, Travis CI will display a list of repository from Github including udacity_project4.  Ensure udacity_project4 is activated in Travis CI.
+  - Go to https://travis-ci.com.  Since you were already logged in to GitHub, Travis CI will display a list of repository from Github including udacity_project4.  Ensure udacity_project4 is activated in Travis CI.
   - In Travis CI, select the repository jsleung1/udacity_project4. Go to more options, settings.
     - In the settings, under Environment Variables, create the following:
     ```
       - DOCKER_USERNAME - Docker hub login username.
       - DOCKER_PASSWORD - Docker hub password.
-      - KUBE_CA_CERT - copy the certificate-authority-data defined in the file in the file terraform/aws/udacitykubeone-kubeconfig.
-      - KUBE_ENDPOINT - copy the server URL path defined in the file in the file terraform/aws/udacitykubeone-kubeconfig.
+      - KUBE_CA_CERT - copy the certificate-authority-data defined in the file terraform/aws/udacitykubeone-kubeconfig.
+      - KUBE_ENDPOINT - copy the server URL path defined in the file terraform/aws/udacitykubeone-kubeconfig.
       - KUBE_ADMIN_CERT - copy the client-certificate-data defined in the file terraform/aws/udacitykubeone-kubeconfig.
       - KUBE_ADMIN_KEY - copy the client-key-data defined in the file terraform/aws/udacitykubeone-kubeconfig.
     ``` 
-  - Create a "bare" kubeconfig file that strip out the above sensitive information related to udacitykubeone-kubeconfig.
+  - Create a "bare" kubeconfig file that strips out the above sensitive information related to udacitykubeone-kubeconfig.
     - Under the parent source directory, this file is placed in **terraform/aws/udacitykubeone-kubeconfig-bare-travis**.
-  - In the parent source folder, create **.travis.yml** file with the following instructions:
+  - To make Travis CI automatically build the images from Github, we create the .travis.yml file in the main source directory with the following instructions:
     - Before the build process start, it install docker-compose and kubectl.  Also, it will start Docker and login to my Docker hub account.
     - For the build process, it run docker-compose with the latest source code changes.
     - After the docker images were successfully built, it will push the images to my Docker hub, by TRAVIS_BUILD_ID, and also tag/push the Docker images as latest.
@@ -137,14 +137,14 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
       kubectl rollout status deployment backend-feed
       kubectl rollout status deployment backend-user
       ```
-    - Also, we can verify a new version is deployed by Kubernetes from Travis by looking at the scale up/down of the replica sets using the following command:
+    - Also, we can verify a new version is deployed by Kubernetes from Travis CI by looking at the scale up/down of the replica sets using the following command:
       ```
       kubectl describe deployment reverseproxy
       kubectl describe deployment frontend
       kubectl describe deployment backend-feed
       kubectl describe deployment backend-user
       ```
-    - At this point, we want to verify the behavior of the updated Udagram application after succeesfully deployed in Kubernetes cluster using Travis CI:
+    - At this point, we also want to verify the behavior of the updated Udagram application after succeesfully deployed in Kubernetes cluster using Travis CI:
       - Execute ```kubectl port-forward service/reverseproxy 8080:8080```
       - Execute ```kubectl port-forward service/frontend 8100:8100```
       - Verify the software changes of the Udagram by going to http://localhost:8100 in the web browser:
@@ -152,3 +152,30 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
         - User is able to login to Udagram.
         - User is able to view the images of the feed.
         - User is able to upload images in Udagram.
+
+#### 5. Instructions for installing FluentD to redirect Kubernetes pod logs to AWS Cloudwatch
+  - The FluentD project is stored in the directory **kube-fluentd-cloudwatch**.  It is based on the Github project: https://github.com/zerda/kube-fluentd-cloudwatch
+    - In AWS, ensure our IAM user has the following permissions for AWS Cloudwatch:
+    ```
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Effect": "Allow",
+              "Action": [
+                  "logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:PutLogEvents",
+                  "logs:DescribeLogStreams"
+              ],
+              "Resource": [
+                  "arn:aws:logs:*:*:*"
+              ]
+          }
+      ]
+    }
+    ```
+    - Execute ```kubectl apply -f aws-secret.yaml```: This file is required by fluentd to access our AWS Cloudwatch.  Note the namespace must be set as 'default' (which is the namespace of our Kubernetes cluster).  The aws_access_key_id and aws_secret_access_key are base64 strings.
+    - Execute ```kubectl apply -f fluentd-configmap.yaml```:  Ensure the namespace is set to 'default'.  The log_group_name_key is set to "udacity_project4_log_group".  The log_stream_name is set to the actual name of the pod running in our Kubernetes cluster.  FluentD will automatically create the log group and log stream under our AWS Cloudwatch.
+    - Execute ```kubectl apply -f fluentd-ds.yaml```:  This file will create the FluentD pods in our Kubernetes cluster.  The FluentD pods will redirect the logs of our pods (reverseproxy, frontend, backend-feed, backend-user) to the AWS Cloudwatch.
+    - Create a Metric filter for log group "udacity_project4_log_group", which will trigger the Alarm and notify the end user subscribed in AWS Simple Notification Service (SNS).
