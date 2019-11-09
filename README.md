@@ -14,9 +14,9 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
    Also export the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values in .bash_profile, which is needed by the terminal
    when execute Terraform commands to create the infrastructure and KubeOne to install Kubernetes cluster 
    and create worker nodes.
-6. Ensure a new SSH key is generated and add it to the ssh-agent before running *terraform plan* .
-   - *execute:* ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-   - *execute:* ssh-add ~/.ssh/id_rsa
+6. Ensure a new SSH key is generated and add it to the ssh-agent before running ```terraform plan``` .
+   - *execute:* ```ssh-keygen -t rsa -b 4096 -C "your_email@example.com"```
+   - *execute:* ```ssh-add ~/.ssh/id_rsa```
 
 ## Setup Instructions:
 
@@ -71,7 +71,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
       - Specify the correct AWS region ("us-east-1")
       - Specify the name of my Kubernetes cluster ("udacitykubeone")
       - ssh_public_key_file: point to the ssh key ("~/.ssh/id_rsa.pub")
-    - execute: *kubeone install config.yaml -t tf.json*
+    - execute: ```kubeone install config.yaml -t tf.json```
     - After the Kubernetes cluster is created, in .bash_profile, export KUBECONFIG=~/udacity_project4/terraform/aws/udacitykubeone-kubeconfig . 
       This is required so kubectl will automatically refer to this config when execute any commands related to kubectl. 
     - The source related to creation of Kubernetes cluster can be found in the source folder **terraform/aws** :
