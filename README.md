@@ -39,21 +39,21 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     ```
   - Build the individual docker images:
     ```
-    - cd udacity-c3-restapi-user/
+    - cd **udacity-c3-restapi-user/**
     - *execute:* docker build -t jsleung1/udacity-restapi-user .
 
-    - *cd* udacity-c3-restapi-feed/
+    - *cd* **udacity-c3-restapi-feed/**
     - *execute:* docker build -t jsleung1/udacity-restapi-feed .
 
-    - *cd* udacity-c3-frontend/
+    - *cd* **udacity-c3-frontend/**
     - *execute:* docker build -t jsleung1/udacity-frontend .
 
-    - cd udacity-c3-deployment/docker
+    - cd **udacity-c3-deployment/docker**
     - *execute:* docker build -t jsleung1/reverseproxy .
     ```
   - Run the docker containers and verify the application behavior:
     ```
-    - cd udacity-c3-deployment/docker
+    - cd **udacity-c3-deployment/docker**
     - *execute:* docker-compose up
     ```
     This will run the above four docker images as defined in **udacity-c3-deployment/docker/docker-compose.yaml** .
@@ -66,9 +66,8 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
 #### 2. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
 
-  Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md :
-
-    - Created terraform.tfvars (refer to source: terraform/aws/terraform.tfvars)
+  - Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md :
+    - Created terraform.tfvars (refer to source: **terraform/aws/terraform.tfvars**)
       - Specify the correct AWS region ("us-east-1")
       - Specify the name of my Kubernetes cluster ("udacitykubeone")
       - ssh_public_key_file: point to the new ssh key ("~/.ssh/id_rsa.pub")
