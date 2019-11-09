@@ -24,7 +24,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
   - Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
     when execute *docker-compose up*.
-    
+    ```
     export AWS_BUCKET=
     export AWS_PROFILE=
     export AWS_REGION=
@@ -36,7 +36,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     export POSTGRESS_PASSWORD=
     export POSTGRESS_USERNAME=
     export URL=
-  
+    ```
   2. Build the individual docker images:
 
     - cd udacity-c3-restapi-user/
