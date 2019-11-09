@@ -1,10 +1,10 @@
 # Udacity Project 4: 
 Project 4: Refactor Udagram App into Microservices and Deploy
 
-#### Important:
+## Important:
 Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory for the project screenshots and meeting the rubrics.
 
-#### Prerequisites:
+## Prerequisites:
 1. Install Docker in your local computer.
 2. Register a Docker Hub account in https://hub.docker.com .
 3. Ensure Docker service is started in your computer and login to Docker Hub in the Terminal.
@@ -18,9 +18,9 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
    - *execute:* ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
    - *execute:* ssh-add ~/.ssh/id_rsa
 
-#### Setup Instructions:
+## Setup Instructions:
 
-##### 1. Build the docker images and ensure the images are running properly in the local system before installing Kubernetes.
+#### 1. Build the docker images and ensure the images are running properly in the local system before installing Kubernetes.
 
   1. Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
     when execute *docker-compose up*.
