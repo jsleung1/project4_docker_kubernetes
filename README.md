@@ -82,5 +82,8 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
 #### 3. Instructions for creation of Kubernetes pods in Kubernetes cluster ("udacitykubeone"):
 
-  - 
+  - Apply the following files using *kubectl apply -f <file_name.yaml>*  for the configuration of the Kubernetes cluster:
+    - **aws-secret.yaml**: Contains the credentials to access AWS.  In the file, under credentials, fill in the value by convert the .aws/credentials file to base64 string.
+    - ** 
+
     
