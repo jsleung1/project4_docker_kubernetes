@@ -37,8 +37,8 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     export POSTGRESS_USERNAME=
     export URL=
     ```
-  2. Build the individual docker images:
-
+  - Build the individual docker images:
+    ```
     - cd udacity-c3-restapi-user/
     - *execute:* docker build -t jsleung1/udacity-restapi-user .
 
@@ -50,13 +50,13 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
     - cd udacity-c3-deployment/docker
     - *execute:* docker build -t jsleung1/reverseproxy .
-  
-  3. Run the docker containers and verify the application behavior:
-
+    ```
+  - Run the docker containers and verify the application behavior:
+    ```
     - cd udacity-c3-deployment/docker
     - *execute:* docker-compose up
-
-    This will run the above four docker images as defined in udacity-c3-deployment/docker/docker-compose.yaml .
+    ```
+    This will run the above four docker images as defined in **udacity-c3-deployment/docker/docker-compose.yaml** .
     From the terminal, ensure the four docker images are started without any errors.
     Verify the behavior of the Udagram:
     
@@ -64,17 +64,10 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     - User is able to view the images of the feed.
     - User is able to upload images in Udagram.
 
+#### 2. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
 
-  
-  
+  Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md :
 
-
-
-2. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
-
-  Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md .
-
-    -
     - Created terraform.tfvars (refer to source: terraform/aws/terraform.tfvars)
       - Specify the correct AWS region ("us-east-1")
       - Specify the name of my Kubernetes cluster ("udacitykubeone")
