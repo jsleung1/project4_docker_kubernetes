@@ -153,9 +153,9 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
         - User is able to view the images of the feed.
         - User is able to upload images in Udagram.
 
-#### 5. Instructions for installing FluentD to redirect Kubernetes pod logs to AWS Cloudwatch
+#### 5. Instructions for installing FluentD to redirect Kubernetes logs to AWS Cloudwatch
   - The FluentD project is stored in the directory **kube-fluentd-cloudwatch**.  It is based on the Github project: https://github.com/zerda/kube-fluentd-cloudwatch
-    - In AWS, ensure our IAM user has the following permissions for AWS Cloudwatch:
+    - In AWS, ensure our IAM user has the following permissions to access AWS Cloudwatch:
     ```
     {
       "Version": "2012-10-17",
@@ -176,6 +176,6 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     }
     ```
     - Execute ```kubectl apply -f aws-secret.yaml```: This file is required by fluentd to access our AWS Cloudwatch.  Note the namespace must be set as 'default' (which is the namespace of our Kubernetes cluster).  The aws_access_key_id and aws_secret_access_key are base64 strings.
-    - Execute ```kubectl apply -f fluentd-configmap.yaml```:  Ensure the namespace is set to 'default'.  The log_group_name_key is set to "udacity_project4_log_group".  The log_stream_name is set to the actual name of the pod running in our Kubernetes cluster.  FluentD will automatically create the log group and log stream under our AWS Cloudwatch.
+    - Execute ```kubectl apply -f fluentd-configmap.yaml```:  Ensure the namespace is set to 'default'.  The log_group_name_key is set to "udacity_project4_log_group".  The log_stream_name is set to the actual full name of the pods running in our Kubernetes cluster.  FluentD will automatically create the log group and log stream under our AWS Cloudwatch.
     - Execute ```kubectl apply -f fluentd-ds.yaml```:  This file will create the FluentD pods in our Kubernetes cluster.  The FluentD pods will redirect the logs of our pods (reverseproxy, frontend, backend-feed, backend-user) to the AWS Cloudwatch.
     - Create a Metric filter for log group "udacity_project4_log_group", which will trigger the Alarm and notify the end user subscribed in AWS Simple Notification Service (SNS).
