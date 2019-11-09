@@ -22,7 +22,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
 
 #### 1. Build the docker images and ensure the images are running properly in the local system before installing Kubernetes.
 
-  1. Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
+  - Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
     when execute *docker-compose up*.
     
     export AWS_BUCKET=
