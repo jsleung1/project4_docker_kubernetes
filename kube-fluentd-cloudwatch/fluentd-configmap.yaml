@@ -24,8 +24,6 @@ data:
       @type record_transformer
       enable_ruby true
       <record>
-        #pod_name ${record.fetch("kubernetes", Hash.new).fetch("pod_name", "unknown_pod")}
-        #container_name ${record.fetch("kubernetes", Hash.new).fetch("container_name", "unknown_container")}
         pod_name "udacity_project4_log_group"
         container_name ${record.fetch("kubernetes", Hash.new).fetch("pod_name", "unknown_pod")}
       </record>
