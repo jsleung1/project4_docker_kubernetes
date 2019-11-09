@@ -1,26 +1,66 @@
 # Udacity Project 4: 
 Project 4: Refactor Udagram App into Microservices and Deploy
 
-Important:
-For the project screenshots and rubrics, please refer to the file: project4_refactor_microservices_and_deploy.pdf in the parent directory of the source.
+#### Important:
+Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory for the project screenshots and meeting the rubrics.
 
-Prerequisites:
+#### Prerequisites:
 1. Install Docker in your local computer.
 2. Register a Docker Hub account in https://hub.docker.com .
 3. Ensure Docker service is started in your computer and login to Docker Hub in the Terminal.
-4. Ensure all the Docker images are built successful and runn
+4. Recommended to create an AWS IAM account with installation privileges (DO NOT use the AWS ROOT account ).
+5. With the AWS IAM account, ensure the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values can be found in the file ~/.aws/credentials, 
+   which is needed for the docker image jsleung1/udacity-restapi-feed to run properly when issue AWS request to getSignedUrl.
+   Also export the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values in .bash_profile, which is needed by the terminal
+   when execute Terraform commands to create the infrastructure and KubeOne to install Kubernetes cluster 
+   and create worker nodes.
+6. Ensure a new SSH key is generated and add it to the ssh-agent before running *terraform plan* .
+   - *execute:* ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   - *execute:* ssh-add ~/.ssh/id_rsa
 
-Setup Instructions:
+#### Setup Instructions:
 
-1. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
+###### 1. Build the docker images and ensure the docker images are running properly in the local system 
+######    before installing the Kubernetes cluster.
 
-   Follow the installation steps for Terraform and Kubectl in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md .
-    - Recommended to create an AWS IAM account with appropriate privileges (should NOT use the AWS ROOT account ).
-    - With the AWS IAM account, export the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values ( can be found in the file ~/.aws/credentials )
-      in .bash_profile.  The AWS key id and secret are required for Terraform to create the infrastructure and KubeOne to install Kubernetes and create worker nodes.
-    - Ensure a new SSH key is generated and add it to the ssh-agent before running terraform plan .
-      - execute: ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-      - execute: ssh-add ~/.ssh/id_rsa
+  1. Export the following environmental variables in .bash_profile.  These environmental variables will be read into docker-compose.yaml
+    when execute *docker-compose up*.
+    
+    export AWS_BUCKET=
+    export AWS_PROFILE=
+    export AWS_REGION=
+    export JWT_SECRET=
+
+    export POSTGRESS_DATABASE=
+    export POSTGRESS_DB=
+    export POSTGRESS_HOST=
+    export POSTGRESS_PASSWORD=
+    export POSTGRESS_USERNAME=
+    export URL
+  
+  2. Build the individual docker images:
+
+    - cd udacity-c3-restapi-user\
+    - *execute:* docker build -t jsleung1/udacity-restapi-user .
+
+    - *cd* udacity-c3-restapi-feed\
+    - *execute:* docker build -t jsleung1/udacity-restapi-feed .
+
+    - *cd* udacity-c3-frontend\
+    - *execute:* docker build -t jsleung1/udacity-frontend .
+
+    - cd udacity-c3-deployment\docker
+    - *execute:* docker build -t jsleung1/reverseproxy .
+
+  
+
+
+
+2. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
+
+  Follow the installation steps in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md .
+
+    -
     - Created terraform.tfvars (refer to source: terraform/aws/terraform.tfvars)
       - Specify the correct AWS region ("us-east-1")
       - Specify the name of my Kubernetes cluster ("udacitykubeone")
