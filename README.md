@@ -35,22 +35,37 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     export POSTGRESS_HOST=
     export POSTGRESS_PASSWORD=
     export POSTGRESS_USERNAME=
-    export URL
+    export URL=
   
   2. Build the individual docker images:
 
-    - cd udacity-c3-restapi-user\
+    - cd udacity-c3-restapi-user/
     - *execute:* docker build -t jsleung1/udacity-restapi-user .
 
-    - *cd* udacity-c3-restapi-feed\
+    - *cd* udacity-c3-restapi-feed/
     - *execute:* docker build -t jsleung1/udacity-restapi-feed .
 
-    - *cd* udacity-c3-frontend\
+    - *cd* udacity-c3-frontend/
     - *execute:* docker build -t jsleung1/udacity-frontend .
 
-    - cd udacity-c3-deployment\docker
+    - cd udacity-c3-deployment/docker
     - *execute:* docker build -t jsleung1/reverseproxy .
+  
+  3. Run the docker containers and verify the application behavior:
 
+    - cd udacity-c3-deployment/docker
+    - *execute:* docker-compose up
+
+    This will run the above four docker images as defined in udacity-c3-deployment/docker/docker-compose.yaml .
+    From the terminal, ensure the four docker images are started without any errors.
+    Verify the behavior of the Udagram:
+    
+    - User is able to login to Udagram.
+    - User is able to view the images of the feed.
+    - User is able to upload images in Udagram.
+
+
+  
   
 
 
