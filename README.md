@@ -58,7 +58,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     ```
     This will run the above four docker images as defined in **udacity-c3-deployment/docker/docker-compose.yaml** .
     From the terminal, ensure the four docker images are started without any errors.
-    Verify the behavior of the Udagram by going to http://localhost:8100 in the Browser:
+    Verify the behavior of the Udagram by going to http://localhost:8100 in the web browser:
     
     - User is able to login to Udagram.
     - User is able to view the images of the feed.
@@ -103,7 +103,7 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
   - At this point, we want to verify the behavior of the Udagram application after succcessfully created the pods in the Kubernetes cluster:
     - Execute ```kubectl port-forward service/reverseproxy 8080:8080```
     - Execute ```kubectl port-forward service/frontend 8100:8100```
-    - Verify the behavior of the Udagram by going to http://localhost:8100 in the Browser:
+    - Verify the behavior of the Udagram by going to http://localhost:8100 in the web browser:
       - User is able to login to Udagram.
       - User is able to view the images of the feed.
       - User is able to upload images in Udagram.
@@ -129,4 +129,26 @@ Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory f
     - For the build process, it run docker-compose with the latest source code changes.
     - After the docker images were successfully built, it will push the images to my Docker hub, by TRAVIS_BUILD_ID, and also tag/push the Docker images as latest.
     - From the environmental variables in Travis settings, it will fill the stripped udacitykubeone-kubeconfig-bare-travis such that Travis can access our Kubernetes cluster.
-    - Travis CI will update the four images in the Kubernetes pod using rolling-update by running ```kubectl set image```. (For details, please refer to my .travis.yml).
+    - Travis CI will update the four images in the Kubernetes pod using rolling-update by running ```kubectl set image```. (For details, please refer to the .travis.yml).
+    - Run the following command to ensure Kubernetes successfully rollout the new deployment:
+      ```
+      kubectl rollout status deployment reverseproxy
+      kubectl rollout status deployment frontend
+      kubectl rollout status deployment backend-feed
+      kubectl rollout status deployment backend-user
+      ```
+    - Also, we can verify a new version is deployed by Kubernetes from Travis by looking at the scale up/down of the replica sets using the following command:
+      ```
+      kubectl describe deployment reverseproxy
+      kubectl describe deployment frontend
+      kubectl describe deployment backend-feed
+      kubectl describe deployment backend-user
+      ```
+    - At this point, we want to verify the behavior of the updated Udagram application after succeesfully deployed in Kubernetes cluster using Travis CI:
+      - Execute ```kubectl port-forward service/reverseproxy 8080:8080```
+      - Execute ```kubectl port-forward service/frontend 8100:8100```
+      - Verify the software changes of the Udagram by going to http://localhost:8100 in the web browser:
+        - Udagram will appear with different colors (For demostration purpose, I have updated the scss of the ionic client).
+        - User is able to login to Udagram.
+        - User is able to view the images of the feed.
+        - User is able to upload images in Udagram.
