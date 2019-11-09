@@ -10,8 +10,11 @@ Prerequisites:
 3. Ensure Docker service is started in your computer and login to Docker Hub in the Terminal.
 4. Ensure all the Docker images are built successful and runn
 
-Instructions for installation of Kubernetes cluster ("udacitykubeone"):
-1. Following the installation steps for Terraform and Kubectl in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md .
+Setup Instructions:
+
+1. Instructions for installation of Kubernetes cluster ("udacitykubeone"):
+
+   Follow the installation steps for Terraform and Kubectl in https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md .
     - Recommended to create an AWS IAM account with appropriate privileges (should NOT use the AWS ROOT account ).
     - With the AWS IAM account, export the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY values ( can be found in the file ~/.aws/credentials )
       in .bash_profile.  The AWS key id and secret are required for Terraform to create the infrastructure and KubeOne to install Kubernetes and create worker nodes.
@@ -32,4 +35,5 @@ Instructions for installation of Kubernetes cluster ("udacitykubeone"):
       - udacitykubeone-kubeconfig-bare-travis: the config of my Kubernetes cluster excluding the sensitive data 
         for Travis CI to update the Kubernetes pods after the image is successfully built.  The sensitive data are replaced by Travis environment variables whose values are defined in Travis Settings.
 
-Instructions for creation of Kubernetes pods:
+2. Instructions for creation of Kubernetes pods:
+    
