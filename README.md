@@ -122,13 +122,13 @@ Please refer to the pdf file: [**project4_rubrics.pdf**](https://github.com/jsle
       - KUBE_ADMIN_CERT - copy the client-certificate-data defined in the file terraform/aws/udacitykubeone-kubeconfig.
       - KUBE_ADMIN_KEY - copy the client-key-data defined in the file terraform/aws/udacitykubeone-kubeconfig.
     ``` 
-  - Create a "bare" kubeconfig file that strips out the above sensitive information related to udacitykubeone-kubeconfig.
-    - Under the parent source directory, this file is placed in **terraform/aws/udacitykubeone-kubeconfig-bare-travis**.
-  - To make Travis CI automatically build the images from Github, we create the .travis.yml file in the main source directory with the following instructions:
+  - Create a "bare" kubeconfig file that strips out the above sensitive information related to udacitykubeone-kubeconfig:
+    - This file is placed in **terraform/aws/udacitykubeone-kubeconfig-bare-travis** under the main project folder.
+  - To make Travis CI automatically build the images from Github, we create the .travis.yml file in the main project folder with the following instructions:
     - Before the build process start, it install docker-compose and kubectl.  Also, it will start Docker and login to my Docker hub account.
     - For the build process, it run docker-compose with the latest source code changes.
     - After the docker images were successfully built, it will push the images to my Docker hub, by TRAVIS_BUILD_ID, and also tag/push the Docker images as latest.
-    - From the environmental variables in Travis settings, it will fill the stripped udacitykubeone-kubeconfig-bare-travis such that Travis can access our Kubernetes cluster.
+    - Using the environmental variables in Travis settings, it will fill in the stripped udacitykubeone-kubeconfig-bare-travis such that Travis can access our Kubernetes cluster.
     - Travis CI will update the four images in the Kubernetes pod using rolling-update by running ```kubectl set image```. (For details, please refer to the .travis.yml).
     - Run the following command to ensure Kubernetes successfully rollout the new deployment:
       ```
@@ -178,4 +178,6 @@ Please refer to the pdf file: [**project4_rubrics.pdf**](https://github.com/jsle
     - Execute ```kubectl apply -f aws-secret.yaml```: This file is required by fluentd to access our AWS Cloudwatch.  Note the namespace must be set as 'default' (which is the namespace of our Kubernetes cluster).  The aws_access_key_id and aws_secret_access_key are base64 strings.
     - Execute ```kubectl apply -f fluentd-configmap.yaml```:  Ensure the namespace is set to 'default'.  The log_group_name_key is set to "udacity_project4_log_group".  The log_stream_name is set to the actual full name of the pods running in our Kubernetes cluster.  FluentD will automatically create the log group and log stream under our AWS Cloudwatch.
     - Execute ```kubectl apply -f fluentd-ds.yaml```:  This file will create the FluentD pods in our Kubernetes cluster.  The FluentD pods will redirect the logs of our pods (reverseproxy, frontend, backend-feed, backend-user) to the AWS Cloudwatch.
-    - Create a Metric filter for log group "udacity_project4_log_group", which will trigger the Alarm and notify the end user subscribed in AWS Simple Notification Service (SNS).
+    - Create a Metric filter for log group "udacity_project4_log_group".
+    - Create an alarm in AWS CloudWatch which will trigger when the log count of our Kubernetes cluster exceeded 100. 
+    - Select the SNS topic group for the alarm such that appropriate users subscribed to SNS will be notified by the alarm.
