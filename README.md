@@ -2,8 +2,7 @@
 Project 4: Refactor Udagram App into Microservices and Deploy
 
 ## Important:
-Please refer to the pdf file: **project4_rubrics.pdf** in the parent directory for the project screenshots and meeting the rubrics.
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
+Please refer to the pdf file: [**project4_rubrics.pdf**](https://github.com/jsleung1/udacity_project4/blob/master/project_4_rubrics.pdf) in the parent directory for the project screenshots and meeting the rubrics.
 
 ## Prerequisites:
 1. Install Docker in your local computer.
