@@ -1,4 +1,4 @@
-# Udacity Project 4: Docker with Kubernetes 
+# Udacity Project 4: Docker and Kubernetes 
 Project 4: Refactor Udagram App into Microservices and Deploy
 
 ## Important:
